@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - image: jc21/nginx-proxy-manager:latest
+          name: app
+          ports:
+            - containerPort: 80
+            - containerPort: 81
+            - containerPort: 443
+          volumeMounts:
+            - mountPath: /app/config/production.json
+              name: app-claim0
+            - mountPath: /data
+              name: app-claim1
+            - mountPath: /etc/letsencrypt
+              name: app-claim2
+      restartPolicy: Always
+      volumes:
+        - name: app-claim0
+          persistentVolumeClaim:
+            claimName: app-claim0
+        - name: app-claim1
+          persistentVolumeClaim:
+            claimName: app-claim1
+        - name: app-claim2
+          persistentVolumeClaim:
+            claimName: app-claim2
+
+  
+      
+          
