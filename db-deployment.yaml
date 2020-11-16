@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: db
+    app: app
   name: db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: db
+      app: app
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: db
+        app: app
     spec:
       containers:
         - env:
@@ -27,7 +27,7 @@ spec:
             - name: MYSQL_USER
               value: npm
           image: jc21/mariadb-aria:10.4
-          name: db
+          name: app
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: db-claim0

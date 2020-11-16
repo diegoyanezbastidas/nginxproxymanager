@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: app
-  name: app
+  name: nginx
 spec:
   replicas: 1
   selector:
@@ -18,13 +18,13 @@ spec:
     spec:
       containers:
         - image: jc21/nginx-proxy-manager:latest
-          name: app
+          name: nginx
           ports:
             - containerPort: 80
             - containerPort: 81
             - containerPort: 443
           volumeMounts:
-            - mountPath: /app/config/production.json
+            - mountPath: /Users/insomnio/nginxproxymanager/production.json
               name: app-claim0
             - mountPath: /data
               name: app-claim1

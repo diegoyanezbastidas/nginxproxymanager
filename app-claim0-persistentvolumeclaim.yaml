@@ -5,10 +5,9 @@ metadata:
     app: app-claim0
   name: app-claim0
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 100Mi
-
-  
